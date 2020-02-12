@@ -51,30 +51,35 @@ room['treasure'].s_to = room['narrow']
 # If the user enters "q", quit the game.
 
 
-starting_room = room['outside'] #TODO (randomize starting room)
+starting_room = room['outside']
+
 # Create Person object
-name = input("Enter your name")
+name = input("Enter your name: ")
 p1 = Player(name, starting_room)
 
-
+# Inputs the user can use
 valid = ['n', 's', 'e', 'w', 'q']
+
+# Error to print when user attempts to move in non existent room
 error = "Room does not exist, please try another direction"
 
+# print starting_room
+print(p1.room.description)
+
 game_run = True
-print(starting_room.description)
 while game_run == True:
-    #TODO - print room name and description
-    
+
     print("Enter n, s, e, or w (q to quit)")
     user_input = input("~~>")
+    print("---------------------------------------")
     if user_input in valid:
 
-        # TODO Game Logic
+        # Game Logic
         if user_input == 'n':
             
             try:
                 p1.room = p1.room.n_to
-                print(p1.room.description)
+                print(p1.room)
             except:
                 print(error)
             
@@ -82,24 +87,25 @@ while game_run == True:
 
             try:
                 p1.room = p1.room.s_to
-                print(p1.room.description)
+                print(p1.room)
             except:
                 print(error)
 
         elif user_input == 'e':
 
             try:
-                p1.room = curr_room.e_to
-                print(p1.room.description)
+                p1.room = p1.room.e_to
+                print(p1.room)
             except:
                 print(error)
 
         elif user_input == 'w':
             try:
-                p1.room = curr_room.w_to
-                print(p1.room.description)
+                p1.room = p1.room.w_to
+                print(p1.room)
             except:
                 print(error)
+
         # End Game
         if user_input == 'q':
             print("\nClosing Game...")
