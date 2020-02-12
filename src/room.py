@@ -8,4 +8,4 @@ class Room:
         self.items = items
 
     def __str__(self):
-        return "Name: {}\nDescription: {}\nItems: {}".format(self.name, self.description, [item.name for item in self.items])
+        return f"Name: {self.name}\nDescription: {self.description}\nItems: {[item.name for item in self.items]}"

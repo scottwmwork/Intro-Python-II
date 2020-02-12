@@ -4,7 +4,7 @@ from item import Item
 
 # Declare all the items
 
-items = {
+item_dic = {
     'sword': Item('sword','Use this for battle'),
     'axe': Item('axe','Use this for battle'),
     'coin': Item('coin', 'It is shiny!'),
@@ -15,21 +15,21 @@ items = {
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons",[items['sword']]),
+                     "North of you, the cave mount beckons",[item_dic['sword']]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""",[items['coin']]),
+passages run north and east.""",[item_dic['coin']]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.""",[]),
+the distance, but there is no way across the chasm.""",[item_dic['axe']]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""",[]),
+to north. The smell of gold permeates the air.""",[item_dic['potion']]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""",[items['coin']]),
+earlier adventurers. The only exit is to the south.""",[item_dic['coin']]),
 }
 
 # Link rooms together
@@ -70,8 +70,6 @@ p1 = Player(name, starting_room, items)
 # Error to print when user attempts to move in non existent room
 error = "Room does not exist, please try another direction"
 
-
-
 game_run = True
 while game_run == True:
     print(p1.room)
@@ -88,14 +86,13 @@ while game_run == True:
 
     # pick up item
     elif 'get' in user_input:
-        item = user_input.split(' ')[1]
-        print(item)
-        if item in p1.room.items:
-            p1.items.append(item) # add to inventory
-            p1.room.items.remove(item) # remove item from room
-            print(f"{item} added!")
+        item_input = user_input.split(' ')[1]
+        if item_dic[item_input] in p1.room.items:
+            p1.items.append(item_dic[item_input]) # add to inventory
+            p1.room.items.remove(item_dic[item_input]) # remove item from room
+            print(f"{item_input} added!")
         else:
-            print("Item not available")
+            print(f"{item_input} not available")
 
     # Move rooms
     elif user_input == 'n':
