@@ -1,26 +1,36 @@
 from room import Room
 from player import Player
+from item import Item
+
+# Declare all the items
+
+items = {
+    'sword': Item('sword','Use this for battle'),
+    'axe': Item('axe','Use this for battle'),
+    'coin': Item('coin', 'It is shiny!'),
+    'potion': Item('potion', 'Restores 10 Health')
+}
+
 # Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons",[items['sword']]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""",[items['coin']]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""",[]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""",[]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""",[items['coin']]),
 }
-
 
 # Link rooms together
 
@@ -52,61 +62,52 @@ room['treasure'].s_to = room['narrow']
 
 
 starting_room = room['outside']
-
+items = []
 # Create Person object
 name = input("Enter your name: ")
-p1 = Player(name, starting_room)
-
-# Inputs the user can use
-valid = ['n', 's', 'e', 'w', 'q']
+p1 = Player(name, starting_room, items)
 
 # Error to print when user attempts to move in non existent room
 error = "Room does not exist, please try another direction"
 
-# print starting_room
-print(p1.room.description)
+
 
 game_run = True
 while game_run == True:
-
+    print(p1.room)
     print("Enter n, s, e, or w (q to quit)")
     user_input = input("~~>")
     print("---------------------------------------")
-    if user_input in valid:
 
-        # Game Logic
-        if user_input == 'n':
-            
-            try:
-                p1.room = p1.room.n_to
-                print(p1.room)
-            except:
-                print(error)
-            
-        elif user_input == 's':
+    # Game Logic
 
-            try:
-                p1.room = p1.room.s_to
-                print(p1.room)
-            except:
-                print(error)
+    # End Game
+    if user_input == 'q':
+        print("\nClosing Game...")
+        exit()
 
-        elif user_input == 'e':
+    # pick up item
+    elif 'get' in user_input:
+        item = user_input.split(' ')[1]
+        print(item)
+        if item in p1.room.items:
+            p1.items.append(item) # add to inventory
+            p1.room.items.remove(item) # remove item from room
+            print(f"{item} added!")
+        else:
+            print("Item not available")
 
-            try:
-                p1.room = p1.room.e_to
-                print(p1.room)
-            except:
-                print(error)
+    # Move rooms
+    elif user_input == 'n':
+        p1.room = p1.room.n_to
+        
+    elif user_input == 's':
+        p1.room = p1.room.s_to
 
-        elif user_input == 'w':
-            try:
-                p1.room = p1.room.w_to
-                print(p1.room)
-            except:
-                print(error)
+    elif user_input == 'e':
+        p1.room = p1.room.e_to
 
-        # End Game
-        if user_input == 'q':
-            print("\nClosing Game...")
-            exit()
+    elif user_input == 'w':
+        p1.room = p1.room.w_to
+    else:
+        print("input not valid")
