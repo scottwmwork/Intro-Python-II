@@ -1,5 +1,5 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -50,6 +50,9 @@ room['treasure'].s_to = room['narrow']
 #
 # If the user enters "q", quit the game.
 
+# Create Person object
+p1 = Player('john', room['outside'])
+print(room['outside'])
 valid = ['u', 'd', 'l', 'r', 'q']
 game_run = True
 while game_run == True:
