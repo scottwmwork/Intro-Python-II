@@ -7,4 +7,4 @@ class Room:
         self.description = description
 
     def __str__(self):
-        return 'Name: {}, Monsters: {}'.format(self.name, self.description)
+        return 'Name: {}, Description: {}'.format(self.name, self.description)

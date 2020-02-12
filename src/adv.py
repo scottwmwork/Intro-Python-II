@@ -50,15 +50,38 @@ room['treasure'].s_to = room['narrow']
 #
 # If the user enters "q", quit the game.
 
+
+curr_room = room['outside'] #TODO (randomize starting room)
 # Create Person object
-p1 = Player('john', room['outside'])
+p1 = Player('john', curr_room)
+
+# Create valid input for user to enter
+valid = ['n', 's', 'e', 'w', 'q']
+
 print(room['outside'])
-valid = ['u', 'd', 'l', 'r', 'q']
-game_run = True
+
+game_run = False
 while game_run == True:
     #TODO - print room name and description
-
-    print("Enter up, down, left, or right (q to quit)")
+    
+    print("Enter n, s, e, or w (q to quit)")
     user_input = input("~~>")
-    if user_input == 'q':
-        exit()
+    if user_input in valid:
+
+        # TODO Game Logic
+        if user_input == 'n':
+            print(curr_room.n_to.description)
+            p1.room = curr_room.n_to
+        elif user_input == 's':
+            print(curr_room.s_to.description)
+            p1.room = curr_room.s_to
+        elif user_input == 'e':
+            print(curr_room.e_to.description)
+            p1.room = curr_room.e_to
+        elif user_input == 'w':
+            print(curr_room.w_to.description)
+            p1.room = curr_room.w_to
+        # End Game
+        if user_input == 'q':
+            print("\nClosing Game...")
+            exit()
