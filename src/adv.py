@@ -68,7 +68,7 @@ name = input("Enter your name: ")
 p1 = Player(name, starting_room, items)
 
 # Error to print when user attempts to move in non existent room
-error = "Room does not exist, please try another direction"
+error = "~~~You cannot go that way!~~~"
 
 game_run = True
 while game_run == True:
@@ -105,27 +105,27 @@ while game_run == True:
 
     # Move rooms 
     elif user_input == 'n':
-        if p1.room.n_to != '':
+        if p1.room.n_to != None:
             p1.room = p1.room.n_to
         else:
-            print("~~~You cannot go that way!~~~")
+            print(error)
     elif user_input == 's':
-        if p1.room.s_to != '':
+        if p1.room.s_to != None:
             p1.room = p1.room.s_to
         else:
-            print("~~~You cannot go that way!~~~")
+            print(error)
 
     elif user_input == 'e':
-        if p1.room.e_to != '':
+        if p1.room.e_to != None:
             p1.room = p1.room.e_to
         else:
-            print("~~~You cannot go that way!~~~")
+            print(error)
 
     elif user_input == 'w':
-        if p1.room.w_to != '':
+        if p1.room.w_to != None:
             p1.room = p1.room.w_to
         else:
-            print("~~~You cannot go that way!~~~")
+            print(error)
 
     # Invalid input
     else:
