@@ -73,9 +73,9 @@ error = "Room does not exist, please try another direction"
 game_run = True
 while game_run == True:
     print(p1.room)
-    print("Enter n, s, e, or w (q to quit)")
-    user_input = input("~~>")
-    print("---------------------------------------")
+    print("\n\tEnter 'n', 's', 'e', or 'w' to move\n\tEnter 'get [item]' to pick up an item or 'drop [item]' to drop it.\n\t(q to quit)")
+    user_input = input("~~> ")
+    print("________________________________________________________________________________________")
 
     # Game Logic
 
@@ -92,27 +92,41 @@ while game_run == True:
             p1.room.items.remove(item_dic[item_input]) # remove item from room
             print(f"{item_input} added!")
         else:
-            print(f"{item_input} not available")
+            print(f"~~~{item_input} not available~~~")
 
     # Drop an item
     elif 'drop' in user_input:
         item_input = user_input.split(' ')[1]
-        if item_dic[item_input] in p1.rooms.items:
+        if item_dic[item_input] in p1.room.items:
             p1.items.remove(item_dic[item_input])
             p1.room.items.append(item_dic[item_input])
         else:
-            print(f"{item_input} not available")
-    # Move rooms
+            print(f"~~~{item_input} not available~~~")
+
+    # Move rooms 
     elif user_input == 'n':
-        p1.room = p1.room.n_to
-        
+        if p1.room.n_to != '':
+            p1.room = p1.room.n_to
+        else:
+            print("~~~You cannot go that way!~~~")
     elif user_input == 's':
-        p1.room = p1.room.s_to
+        if p1.room.s_to != '':
+            p1.room = p1.room.s_to
+        else:
+            print("~~~You cannot go that way!~~~")
 
     elif user_input == 'e':
-        p1.room = p1.room.e_to
+        if p1.room.e_to != '':
+            p1.room = p1.room.e_to
+        else:
+            print("~~~You cannot go that way!~~~")
 
     elif user_input == 'w':
-        p1.room = p1.room.w_to
+        if p1.room.w_to != '':
+            p1.room = p1.room.w_to
+        else:
+            print("~~~You cannot go that way!~~~")
+
+    # Invalid input
     else:
-        print("input not valid")
+        print("~~~input not valid~~~")
