@@ -25,7 +25,7 @@ into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm.""",[item_dic['axe']]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""",[item_dic['potion']]),
+to north. The smell of gold permeates the air.""",[item_dic['potion'], item_dic['coin']]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
@@ -84,7 +84,7 @@ while game_run == True:
         print("\nClosing Game...")
         exit()
 
-    # pick up item
+    # Get an item
     elif 'get' in user_input:
         item_input = user_input.split(' ')[1]
         if item_dic[item_input] in p1.room.items:
@@ -94,6 +94,14 @@ while game_run == True:
         else:
             print(f"{item_input} not available")
 
+    # Drop an item
+    elif 'drop' in user_input:
+        item_input = user_input.split(' ')[1]
+        if item_dic[item_input] in p1.rooms.items:
+            p1.items.remove(item_dic[item_input])
+            p1.room.items.append(item_dic[item_input])
+        else:
+            print(f"{item_input} not available")
     # Move rooms
     elif user_input == 'n':
         p1.room = p1.room.n_to
